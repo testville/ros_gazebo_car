@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <name>ackermann_vehicle_description</name>
+  <version>0.1.3</version>
+  <description>
+    gazebo car-like robot
+  </description>
+  <maintainer email="none@none.com">
+    Ivan Makarov
+  </maintainer>
+  <license>Apache 2.0</license>
+
+  <author email="none@none.com">Ivan Makarov</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>hardware_interface</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>transmission_interface</run_depend>
+  <run_depend>xacro</run_depend>
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

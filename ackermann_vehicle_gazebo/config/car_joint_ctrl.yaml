@@ -1,0 +1,21 @@
+  # Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50  
+
+
+  # Position Controllers ---------------------------------------
+front_left_wheel_vel_controller:
+  type: velocity_controllers/JointVelocityController 
+  joint: front_left_wheel_joint
+  pid: {p: 1.0, i: 0.0001, d: 0.0001}
+front_right_wheel_vel_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_right_wheel_joint
+  pid: {p: 1.0, i: 0.0001, d: 0.0001}
+front_left_steering_knuckle_controller:
+  type: position_controllers/JointPositionController
+  joint: front_left_steering_knuckle_joint
+front_right_steering_knuckle_controller:
+  type: position_controllers/JointPositionController
+  joint: front_right_steering_knuckle_joint

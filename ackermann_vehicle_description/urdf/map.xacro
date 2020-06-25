@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<robot name="map" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<link name="map">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://ackermann_vehicle_description/meshes/map.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://ackermann_vehicle_description/meshes/map.dae"/>
+      </geometry>
+    </visual>
+  </link>
+</robot>

@@ -1,0 +1,21 @@
+front_left_wheel:
+  link_name: front_left_wheel_link
+  steering_controller_name: front_left_steering_knuckle_controller
+  vel_controller_name: front_left_wheel_vel_controller
+  radius: 0.15
+
+front_right_wheel:
+  link_name: front_right_wheel_link
+  steering_controller_name: front_right_steering_knuckle_controller
+  vel_controller_name: front_right_wheel_vel_controller
+  radius: 0.15
+
+rear_left_wheel:
+  link_name: rear_left_wheel_link
+  vel_controller_name: rear_left_wheel_vel_controller
+  radius: 0.15
+
+rear_right_wheel:
+  link_name: rear_right_wheel_link
+  vel_controller_name: rear_right_wheel_vel_controller
+  radius: 0.15

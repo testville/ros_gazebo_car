@@ -1,0 +1,13 @@
+material CarMaterial{
+    technique
+    {
+        pass
+        {
+	    texture_unit
+            {
+                texture Material_Base_Color_002.png
+                scale 1 1
+            }
+        }   
+    }
+}

@@ -1,0 +1,88 @@
+<launch>
+  <arg name="namespace" default="/"/>
+  <arg name="world_name" default="worlds/empty.world"/>
+
+  <!-- Vehicle pose -->
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.3"/>
+  <arg name="roll" default="0.0"/>
+  <arg name="pitch" default="0.0"/>
+  <arg name="yaw" default="0.0"/>
+  
+  <env name="GAZEBO_MODEL_PATH" value="$(find ackermann_vehicle_gazebo)/models"/>
+
+    <!-- Create the world. -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	<arg name="world_name" value="$(find ackermann_vehicle_gazebo)/worlds/bot.world"/>
+    </include>
+
+  <param name="robot_description"
+           command="$(find xacro)/xacro.py $(find ackermann_vehicle_description)/urdf/car.xacro"/>
+
+<!--
+<rosparam file="$(find ackermann_vehicle_gazebo)/config/gain.yaml" command="load"/>
+
+ -->
+<!-- Spawn a robot into Gazebo -->
+<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model car -gazebo_namespace /$(arg namespace)/gazebo -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+    args="$(find ackermann_vehicle_gazebo)/config/car_joint_ctrl.yaml"/>
+
+<node name="vehicle_state_publisher" pkg="robot_state_publisher"
+          type="robot_state_publisher">
+      <param name="publish_frequency" value="30.0"/>
+    </node>
+    
+    <node pkg="ackermann_vehicle_gazebo" type="rear_wheels_tf.py" name="rear_wheels_tf_left" args="0 0.05 0 0 0 0 1 rear_left_wheel_axel rear_left_wheel_link" />
+    <node pkg="ackermann_vehicle_gazebo" type="rear_wheels_tf.py" name="rear_wheels_tf_right" args="0 0.05 0 0 0 0 1 rear_right_wheel_axel rear_right_wheel_link" />
+    <node name="veltoackermann" pkg="ackermann_vehicle_gazebo" type="veltoackermann.py" />
+    <node name="car_controller" pkg="ackermann_vehicle_gazebo"
+          type="car_controller.py">
+    </node>
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ackermann_vehicle_gazebo)/config/rviz_config.rviz"></node>
+
+
+
+
+<!--loading hector_mapping -->
+
+<!--load odom to transform broadcaster -->
+   <node name="odomtotfbroadcaster" pkg="ackermann_vehicle_gazebo" type="odomEncoder.py" />
+
+ <!-- <node pkg="tf" type="static_transform_publisher" name="odom_to_base_lnk" args="0 0 0 0 0 0 /map /odom 100"/> -->
+
+
+
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+	<rosparam file="$(find ackermann_vehicle_gazebo)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ackermann_vehicle_gazebo)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+<rosparam file="$(find ackermann_vehicle_gazebo)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ackermann_vehicle_gazebo)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ackermann_vehicle_gazebo)/config/base_local_planner_params.yaml" command="load" />
+   <param name="base_global_planner" value="rrt_planner/GlobalPlanner"/>
+	<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />  
+<remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan" to="scan"/>
+  </node>
+
+<!-- replace gmapping with that-->
+
+<!-- replace gmapping with that-->
+
+<node pkg="gmapping" type="slam_gmapping" name="gmapping_thing" output="screen" >
+  <remap from="scan" to="scan" />
+  <param name="odom_frame" value="odom" />
+  <param name="base_frame" value="base_link" />
+</node>
+
+
+
+
+</launch>

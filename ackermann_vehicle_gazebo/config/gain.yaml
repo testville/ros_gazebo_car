@@ -1,0 +1,9 @@
+gazebo_ros_control/pid_gains:
+  front_left_steering_knuckle_joint:
+    p: 1.0
+    i: 0.0
+    d: 0.0
+  front_right_steering_knuckle_joint:
+    p: 1.0
+    i: 0.0
+    d: 0.0
