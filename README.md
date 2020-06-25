@@ -16,3 +16,5 @@ http://wiki.ros.org/tf
 http://docs.ros.org/api/geometry_msgs/html/msg/TransformStamped.html    
 http://wiki.ros.org/tf/Debugging%20tools  
 roslaunch ackermann_vehicle_gazebo ackermann_vehicle.launch
+
+это все обфускация если че
