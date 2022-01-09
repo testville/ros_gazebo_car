@@ -1,3 +1,5 @@
+ПРОЕКТ ОБФУСЦИРОВАН!
+
 Ubuntu 18.04.4 LTS  
 ROS Melodic  
 Gazebo 9  
